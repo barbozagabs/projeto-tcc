@@ -7,7 +7,8 @@ RUN bitnami-pkg install java-1.8.144-0 --checksum 8b4315727f65780d8223df0aeaf5e3
 RUN bitnami-pkg unpack tomcat-8.0.46-1 --checksum ed8a3e4e66f497e527486da4ed80121e39f59767ab939017b4f8970d7905df4f
 RUN ln -sf /opt/bitnami/tomcat/data /app
 
-COPY rootfs /
+COPY app-entrypoint.sh /
+COPY tomcat-inputs.json /
 
 ENV BITNAMI_APP_NAME="tomcat" \
     BITNAMI_IMAGE_VERSION="8.0.46-r1" \
@@ -20,7 +21,7 @@ ENV BITNAMI_APP_NAME="tomcat" \
     TOMCAT_SHUTDOWN_PORT_NUMBER="8005" \
     TOMCAT_USERNAME="user"
 
-COPY ./projeto-web-0.0.1-SNAPSHOT.war /opt/bitnami/tomcat/webapps
+COPY /var/lib/jenkins/workspace/teste-docker /opt/bitnami/tomcat/webapps
 
 EXPOSE 8081
 EXPOSE 8084
